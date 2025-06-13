@@ -1,0 +1,27 @@
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.imageSide {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.formSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.backToLogin {
+  margin-top: 15px;
+  color: #007bff;
+  cursor: pointer;
+}

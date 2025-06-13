@@ -1,0 +1,103 @@
+.centralPage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: #f0f0f0; 
+}
+
+.centralContainer {
+  background-color: #E4E4E4;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+  max-height: 500px; 
+  width: 400px;
+}
+
+
+.loginBox {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px; /* limita el ancho */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box; /* para que el padding no agrande más el ancho */
+}
+
+
+.logo {
+  width: 140px;
+  margin-bottom: 20px;
+}
+
+
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+.rightLayout {
+  flex-direction: row-reverse;
+}
+
+.imageSide {
+  flex: 1;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contentContainer {
+  flex: 1;
+  background-color: #E4E4E4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialIconsSide {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.googleBtn,
+.facebookBtn {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.googleBtn {
+  background-color: #db4437;
+}
+
+.facebookBtn {
+  background-color: #4267B2;
+}
+
+.signupLink {
+  color: #666;
+  cursor: pointer;
+  margin-top: 10px;
+}
