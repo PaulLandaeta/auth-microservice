@@ -1,8 +1,8 @@
 import LoginForm from "./LoginForm";
 import SocialLogin from "./SocialLogin";
 import upbLogo from "/upblogo.jpeg";
-import figuraIzq from "../assets/upb-campus.jpg";
-import figuraDer from "../assets/upb-campus.jpg";
+import figuraIzq from "../assets/fotito.png";
+import figuraDer from "../assets/fotito.png";
 
 const Login = ({ mode = "center" }) => {
   const renderContent = () => {
@@ -47,7 +47,7 @@ const Login = ({ mode = "center" }) => {
     }
   };
 
-  return <>{renderContent()}</>;
+  return <div className="login-background">{renderContent()}</div>;
 };
 
 export default Login;

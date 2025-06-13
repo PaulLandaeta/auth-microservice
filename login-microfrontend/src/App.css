@@ -5,9 +5,20 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-body {
-  background-color: #f5f7fa;
+.background-full {
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/fondito.png'); 
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .app-container {
   min-height: 100vh;
@@ -232,3 +243,6 @@ h1 {
     padding: 0;
   }
 }
+
+
+
