@@ -1,11 +1,3 @@
-package upb.edu.AuthMicroservice.controllers;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-
-import upb.edu.AuthMicroservice.models.User;
-import upb.edu.AuthMicroservice.services.UserService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

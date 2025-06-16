@@ -4,5 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import upb.edu.AuthMicroservice.models.User;
 
-public interface UserRepository extends JpaRepository<User, String> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PermissionRepository extends JpaRepository<Permission, Long> {
 }
