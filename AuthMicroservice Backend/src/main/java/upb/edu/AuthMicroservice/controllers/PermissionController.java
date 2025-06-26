@@ -1,63 +1,26 @@
+package upb.edu.AuthMicroservice.controllers;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import upb.edu.AuthMicroservice.models.User;
+import upb.edu.AuthMicroservice.services.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-@Table(name = "permissions")
-public class Permission {
+@RestController
+@RequestMapping("/permissions")
+public class PermissionController {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final CreatePermissionInteractor interactor;
 
-    private String name;
-
-    private String action;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
+    public PermissionController(CreatePermissionInteractor interactor) {
+        this.interactor = interactor;
     }
 
-    @PreUpdate
-    public void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    @PostMapping
+    public ResponseEntity<BaseResponse> createPermission(@RequestBody CreatePermissionRequest request) {
+        BaseResponse response = interactor.execute(request);
+        return ResponseEntity.status(201).body(response);
     }
-    public long getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-    public String getAction(){
-        return action;
-    }
-    public LocalDateTime getCreatedAt(){
-        return createdAt;
-    }
-    public LocalDateTime getUpdatedAt(){
-        return updatedAt;
-    }
-
-    public void setName (String name){
-        this.name = name;
-    }
-    public void setAction (String action){
-        this.action = action;
-    }
-    public void setName (LocalDateTime createdAt){
-        this.createdAt = createdAt;
-    
-    public void setName (LocalDateTime updatedAt){
-        this.updatedAt = updatedAt;
-    }
-    public void setId (long id){
-        this.Id = id;
-    }   
-    
 }
