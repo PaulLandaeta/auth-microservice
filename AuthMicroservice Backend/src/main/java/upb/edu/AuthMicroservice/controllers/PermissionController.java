@@ -9,18 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/permissions")
 public class PermissionController {
 
-    private final CreatePermissionInteractor interactor;
+    @Autowired
+    private PermissionInteractor permissionInteractor;
 
-    public PermissionController(CreatePermissionInteractor interactor) {
-        this.interactor = interactor;
-    }
-
-    @PostMapping
-    public ResponseEntity<BaseResponse> createPermission(@RequestBody CreatePermissionRequest request) {
-        BaseResponse response = interactor.execute(request);
-        return ResponseEntity.status(201).body(response);
+    public ServerResponse createPermission(ServerRequest request) {
+        try {
+            PermissionEntity permission = request.body(PermissionEntity.class);
+            permissionInteractor.createPermission(permission);
+            return ServerResponse.ok().body(new BaseResponse("201", "Permiso creado correctamente"));
+        } catch (Exception e) {
+            return ServerResponse.badRequest().body(new BaseResponse("400", "Error: " + e.getMessage()));
+        }
     }
 }
