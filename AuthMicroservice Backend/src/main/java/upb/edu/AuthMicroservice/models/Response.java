@@ -1,6 +1,6 @@
 package upb.edu.AuthMicroservice.models;
 
-public class BaseResponse {
+public class Response {
     private String code;
     private String msg;
 
