@@ -1,23 +1,42 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# dependencies
+# Dependency directories
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
-# production
+# Build and distribution
+/dist
+/dist-ssr
 /build
 
-# misc
+# Editor and OS specific files
+.vscode/*
+!.vscode/extensions.json  # Keep this to include extensions.json
+.idea
 .DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Vite/Module Federation temporary files
+.__mf__temp*
+**/__mf__virtual/*
+
+# Testing
+/coverage
