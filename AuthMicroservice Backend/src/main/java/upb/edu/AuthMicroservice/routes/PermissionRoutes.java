@@ -23,6 +23,7 @@ public class PermissionRoutes {
     public RouterFunction<ServerResponse> permissionRouter() {
         return route()
                 .POST("/permissions", permissionController::createPermission)
+                .DELETE("/api/permissions/{id}", permissionController::deletePermission)
                 .build();
     }
 }

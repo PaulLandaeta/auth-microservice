@@ -1,4 +1,6 @@
 package upb.edu.AuthMicroservice.controllers;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.ServerRequest;
@@ -26,4 +28,20 @@ public class PermissionController {
             return ServerResponse.badRequest().body(new Response("400", "Error: " + e.getMessage()));
         }
     }
+
+     public ServerResponse deletePermission(ServerRequest request) {
+        try {
+            String id = request.pathVariable("id");
+            if (permissionInteractor.deletePermission(id)) {
+                return ServerResponse.noContent().build();
+            } else {
+                return ServerResponse.notFound().build();
+            }
+        } catch (Exception e) {
+            return ServerResponse.status(500).body(
+                Map.of("code", 500, "msg", "Error interno: " + e.getMessage())
+            );
+        }
+    }
+
 }

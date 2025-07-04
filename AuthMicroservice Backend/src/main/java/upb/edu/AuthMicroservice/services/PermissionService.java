@@ -24,4 +24,13 @@ public class PermissionService {
     public Permission createPermission(Permission permission) {
         return permissionRepository.save(permission);
     }
+
+        public boolean deletePermission(String id) {
+        if (permissionRepository.existsById(id)) {
+            permissionRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -18,4 +18,9 @@ public class PermissionInteractor {
     public Permission createPermission(Permission permission) {
         return permissionService.createPermission(permission);
     }
+
+    public boolean deletePermission(String id) {
+        return permissionService.deletePermission(id);
+    }
+
 }
