@@ -10,7 +10,10 @@ import upb.edu.AuthMicroservice.models.Session;
 import upb.edu.AuthMicroservice.models.User;
 import upb.edu.AuthMicroservice.repositories.SessionRepository;
 
-import java.time.LocalDateTime;
+import upb.edu.AuthMicroservice.interactors.SessionInteractor;
+import upb.edu.AuthMicroservice.interactors.UserInteractor;
+import upb.edu.AuthMicroservice.models.User;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

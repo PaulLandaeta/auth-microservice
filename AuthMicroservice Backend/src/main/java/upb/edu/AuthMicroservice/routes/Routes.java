@@ -3,10 +3,13 @@ package upb.edu.AuthMicroservice.routes;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import upb.edu.AuthMicroservice.controllers.RoleController;
 import upb.edu.AuthMicroservice.controllers.UserController;
+
+import org.springframework.http.ResponseEntity;
 
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 
