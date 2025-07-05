@@ -19,7 +19,8 @@ public class RoleRoutes {
     @Bean
     public RouterFunction<ServerResponse> roleRouter() {
         return route()
-                .POST("/", roleController::createRole)
+                .POST("/api/roles", roleController::createRole)
+                .PUT("/api/roles/{id}", roleController::updateRole)
                 .build();
     }
 }
