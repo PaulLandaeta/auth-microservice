@@ -14,6 +14,11 @@ import org.springframework.http.ResponseEntity;
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 import upb.edu.AuthMicroservice.controllers.SessionController;
+import upb.edu.AuthMicroservice.models.LoginRequest;
+import upb.edu.AuthMicroservice.models.Response;
+import upb.edu.AuthMicroservice.models.User;
+
+import org.springframework.http.ResponseEntity;
 
 @Configuration
 public class Routes {
@@ -43,7 +48,9 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> sessionRoutes() {
         return route()
-                .POST("/generate-session", sessionController::generateSession)
+                .POST("/generate-session", request -> {
+                    return sessionController.generateSession(request);
+                })
                 .build();
     }
 }
