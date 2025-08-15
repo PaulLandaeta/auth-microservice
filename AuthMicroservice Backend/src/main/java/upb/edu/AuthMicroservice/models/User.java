@@ -26,7 +26,7 @@ public class User {
     @JsonProperty("middle_name")
     private String middleName;
 
-    @JsonProperty("last_name")
+    @JsonProperty("last_names")
     private String lastName;
     private String code;
 
