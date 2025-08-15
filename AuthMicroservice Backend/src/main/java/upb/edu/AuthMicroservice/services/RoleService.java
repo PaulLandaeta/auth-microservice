@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import upb.edu.AuthMicroservice.models.Role;
 import upb.edu.AuthMicroservice.repositories.RoleRepository;
+import java.util.List;
 
 @Service
 public class RoleService {
@@ -16,4 +17,7 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
 }

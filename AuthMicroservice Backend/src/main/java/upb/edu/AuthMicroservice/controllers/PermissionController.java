@@ -1,4 +1,8 @@
 package upb.edu.AuthMicroservice.controllers;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.ServerRequest;
@@ -24,6 +28,19 @@ public class PermissionController {
             return ServerResponse.ok().body(new Response("201", "Permiso creado correctamente"));
         } catch (Exception e) {
             return ServerResponse.badRequest().body(new Response("400", "Error: " + e.getMessage()));
+        }
+    }   
+
+    public ServerResponse getAllPermissions(ServerRequest request) {
+        try {
+            List<Permission> permissions = permissionInteractor.getAllPermissions();
+            Map<String, Object> response = new HashMap<>();
+            response.put("code", 200);
+            response.put("msg", "OK");
+            response.put("data", permissions);
+            return ServerResponse.ok().body(response);
+        } catch (Exception e) {
+            return ServerResponse.badRequest().body(new Response("500", "Error interno: " + e.getMessage()));
         }
     }
 }

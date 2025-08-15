@@ -24,4 +24,8 @@ public class PermissionService {
     public Permission createPermission(Permission permission) {
         return permissionRepository.save(permission);
     }
+
+    public List<Permission> getAllPermissions() {
+        return permissionRepository.findAll();
+    }
 }

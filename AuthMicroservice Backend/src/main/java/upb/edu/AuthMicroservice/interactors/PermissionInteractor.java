@@ -1,5 +1,6 @@
 package upb.edu.AuthMicroservice.interactors;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,5 +18,10 @@ public class PermissionInteractor {
 
     public Permission createPermission(Permission permission) {
         return permissionService.createPermission(permission);
+    }
+
+
+    public List<Permission> getAllPermissions() {
+        return permissionService.getAllPermissions();
     }
 }

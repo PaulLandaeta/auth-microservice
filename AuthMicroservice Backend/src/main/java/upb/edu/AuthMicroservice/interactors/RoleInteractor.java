@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import upb.edu.AuthMicroservice.models.Role;
 import upb.edu.AuthMicroservice.services.RoleService;
+import java.util.List;
 
 @Component
 public class RoleInteractor {
@@ -15,4 +16,7 @@ public class RoleInteractor {
         return roleService.createRole(role);
     }
 
+     public List<Role> getAllRoles() {
+        return roleService.getAllRoles();
+    }
 }

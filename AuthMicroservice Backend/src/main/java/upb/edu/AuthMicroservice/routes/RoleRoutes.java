@@ -7,19 +7,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
+import static org.springframework.web.servlet.function.RequestPredicates.GET;
+import static org.springframework.web.servlet.function.RequestPredicates.POST;
+import org.springframework.web.servlet.function.RouterFunctions;
+
 
 import upb.edu.AuthMicroservice.controllers.RoleController;
 
 @Component
 public class RoleRoutes {
 
-    @Autowired
-    private RoleController roleController;
-
-    @Bean
-    public RouterFunction<ServerResponse> roleRouter() {
-        return route()
-                .POST("/", roleController::createRole)
-                .build();
+    public static RouterFunction<ServerResponse> roleRoutes(RoleController roleController) {
+        return RouterFunctions.route(GET("/roles"), roleController::getAllRoles)
+                      .andRoute(POST("/roles"), roleController::createRole);
     }
 }
