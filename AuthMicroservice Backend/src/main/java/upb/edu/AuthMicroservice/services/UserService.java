@@ -60,11 +60,5 @@ public class UserService {
                     .status(401)
                     .body(Map.of("code", 401, "msg", "Datos incorrectos"));
         }
-
-        return ResponseEntity.ok(Map.of(
-                "code", 200,
-                "msg",  "Ok",
-                "data", data
-        ));
     }
 }

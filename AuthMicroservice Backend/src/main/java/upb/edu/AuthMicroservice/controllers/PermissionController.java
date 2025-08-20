@@ -33,10 +33,7 @@ public class PermissionController {
         }
     }   
 
-    public ServerResponse getAllPermissions(ServerRequest request) {
-    }
-
-     public ServerResponse deletePermission(ServerRequest request) {
+    public ServerResponse deletePermission(ServerRequest request) {
         try {
             String id = request.pathVariable("id");
             if (permissionInteractor.deletePermission(id)) {
@@ -50,7 +47,8 @@ public class PermissionController {
             );
         }
     }
-        public ServerResponse getAllPermissions(ServerRequest request) {
+
+    public ServerResponse getAllPermissions(ServerRequest request) {
         try {
             List<Permission> permissions = permissionInteractor.getAllPermissions();
             Map<String, Object> response = new HashMap<>();
@@ -62,6 +60,4 @@ public class PermissionController {
             return ServerResponse.badRequest().body(new Response("500", "Error interno: " + e.getMessage()));
         }
     }
-}
-
 }

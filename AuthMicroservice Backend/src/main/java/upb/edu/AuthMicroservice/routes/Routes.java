@@ -40,27 +40,7 @@ public class Routes {
                 .POST("/login", userController::login)
                 .PUT("/change-password", userController::changePassword)
                 .POST("/generate-session", sessionController::generateSession)
-                .add(RoleRoutes.roleRoutes(roleController)))
+                .add(RoleRoutes.roleRouter(roleController)))
             .build();
-
-    @Bean
-    public RouterFunction<ServerResponse> routerFunction(RoleController roleController) {
-        return route()
-                .path("/api", builder -> builder.add(RoleRoutes.roleRouter(roleController)))
-                .build();
-    }
-    @Bean
-    public RouterFunction<ServerResponse> userRoutes(UserController controller) {
-        return route()
-                .POST("/register-user", userController::registerUser)
-                .POST("/login",        userController::login)
-                .build();
-    }
-
-    @Bean
-    public RouterFunction<ServerResponse> sessionRoutes() {
-        return route()
-                .POST("/generate-session", sessionController::generateSession)
-                .build();
     }
 }
