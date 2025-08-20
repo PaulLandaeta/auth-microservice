@@ -5,6 +5,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import HomeTest from "./components/HomeTest";
 
 function App() {
   const [mode, setMode] = useState("center");
@@ -23,6 +24,10 @@ function App() {
             <Route
               path="/reset-password"
               element={<ResetPasswordPage />}
+            />
+            <Route
+              path="/hometest"
+              element={<HomeTest />}
             />
           </Routes>
         </BrowserRouter>
