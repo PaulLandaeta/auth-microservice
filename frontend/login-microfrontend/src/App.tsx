@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [mode, setMode] = useState("center");
@@ -19,6 +20,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          <Toaster position="top-center" />
         </BrowserRouter>
       </div>
     </div>
