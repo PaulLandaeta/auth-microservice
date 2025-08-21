@@ -24,6 +24,7 @@ public class PermissionRoutes {
         return route()
                 .POST("/permissions", permissionController::createPermission)
                 .GET("/api/permissions", permissionController::getAllPermissions)
+                .PUT("/api/permissions/{id}", permissionController::updatePermission)
                 .DELETE("/api/permissions/{id}", permissionController::deletePermission)
                 .build();
     }
