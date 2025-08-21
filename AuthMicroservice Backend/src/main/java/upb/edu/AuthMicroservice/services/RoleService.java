@@ -17,6 +17,14 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
+    public boolean deleteRole(Integer id) {
+        if (roleRepository.existsById(id)) {
+            roleRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }

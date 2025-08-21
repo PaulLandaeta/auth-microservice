@@ -1,8 +1,8 @@
 import LoginForm from "./LoginForm";
 import SocialLogin from "./SocialLogin";
 import upbLogo from "/upblogo.jpeg";
-import figuraIzq from "../assets/fotito.png";
-import figuraDer from "../assets/fotito.png";
+import figuraIzq from "/fotito.png";
+import figuraDer from "/fotito.png";
 
 const Login = ({ mode = "center" }) => {
   const renderContent = () => {

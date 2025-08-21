@@ -11,14 +11,17 @@ import static org.springframework.web.servlet.function.RequestPredicates.GET;
 import static org.springframework.web.servlet.function.RequestPredicates.POST;
 import org.springframework.web.servlet.function.RouterFunctions;
 
-
 import upb.edu.AuthMicroservice.controllers.RoleController;
 
 @Component
 public class RoleRoutes {
 
-    public static RouterFunction<ServerResponse> roleRoutes(RoleController roleController) {
-        return RouterFunctions.route(GET("/roles"), roleController::getAllRoles)
-                      .andRoute(POST("/roles"), roleController::createRole);
+    @Bean
+    public static RouterFunction<ServerResponse> roleRouter(RoleController roleController) {
+        return route()
+                .POST("/roles", roleController::createRole)
+                .DELETE("/roles/{id}", roleController::deleteRole) 
+                .GET("/roles", roleController::getAllRoles)
+                .build();
     }
 }

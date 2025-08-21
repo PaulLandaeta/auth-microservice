@@ -1,3 +1,5 @@
+
+
 package upb.edu.AuthMicroservice.interactors;
 
 import java.util.List;
@@ -23,5 +25,9 @@ public class PermissionInteractor {
 
     public List<Permission> getAllPermissions() {
         return permissionService.getAllPermissions();
+    }
+    
+    public boolean deletePermission(String id) {
+        return permissionService.deletePermission(id);
     }
 }

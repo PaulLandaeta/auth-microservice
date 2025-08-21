@@ -1,3 +1,4 @@
+import AuthLayout from "./AuthLayout";
 import SocialLogin from "../../components/SocialLogin";
 import upbLogo from "/upblogo.jpeg";
 import figuraIzq from "../../assets/fotito.png";
@@ -61,4 +62,21 @@ export default function ResetPasswordPage({ position = "center" }) {
           </div>
         </div>
   )
+
+export default function ResetPasswordPage() {
+  return (
+    <AuthLayout position="right">
+      <h2>Reset Password</h2>
+
+      <form className="login-form">
+        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Confirm Password" required />
+        <button type="submit" className="login-btn">
+          Login
+        </button>
+      </form>
+
+      <SocialLogin />
+    </AuthLayout>
+  );
 }
