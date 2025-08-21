@@ -1,35 +1,3 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Dependencies and build outputs
-node_modules
-dist
-dist-ssr
-/build
-
-# Temporary files from Vite/Module Federation
-.__mf__temp*
-**/__mf__virtual/*
-
-# IDE and editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-*.local
-
-# Environment variables
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -50,14 +18,6 @@ dist-ssr
 .env.test.local
 .env.production.local
 
-# Test coverage
-/coverage
-
-# System dependencies
-/.pnp
-.pnp.js
-
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

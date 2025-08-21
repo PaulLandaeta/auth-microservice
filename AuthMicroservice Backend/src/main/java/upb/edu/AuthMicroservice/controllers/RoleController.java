@@ -11,8 +11,6 @@ import upb.edu.AuthMicroservice.models.Response;
 import upb.edu.AuthMicroservice.models.Role;
 import java.util.List;
 
-@Component
-
 @RestController
 public class RoleController {
 

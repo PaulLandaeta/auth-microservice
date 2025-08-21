@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import upb.edu.AuthMicroservice.interactors.SessionInteractor;
-
-
 import upb.edu.AuthMicroservice.interactors.UserInteractor;
 import upb.edu.AuthMicroservice.models.User;
 
@@ -14,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-
-
 
 @Service
 public class UserService {
@@ -46,13 +42,17 @@ public class UserService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("session", sessionId.toString());
-        
-        return ResponseEntity.ok(Map.of("code", 200, "msg", "Ok", "data", data));
+
+        return ResponseEntity.ok(Map.of(
+                "code", 200,
+                "msg",  "Ok",
+                "data", data
+        ));
     }
 
     public ResponseEntity<Object> changePassword(String email, String oldPassword, String newPassword) {
         boolean success = userInteractor.changePassword(email, oldPassword, newPassword);
-        
+
         if (success) {
             return ResponseEntity.ok(Map.of("code", 200, "msg", "Ok"));
         } else {

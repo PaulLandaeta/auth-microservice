@@ -13,6 +13,7 @@ const appStyle = {
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
+
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

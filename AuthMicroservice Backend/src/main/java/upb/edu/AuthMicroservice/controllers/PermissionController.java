@@ -1,8 +1,6 @@
 package upb.edu.AuthMicroservice.controllers;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +12,11 @@ import upb.edu.AuthMicroservice.interactors.PermissionInteractor;
 import upb.edu.AuthMicroservice.models.Permission;
 import upb.edu.AuthMicroservice.models.Response;
 
-
 @RestController
 public class PermissionController {
 
-
     @Autowired
     private PermissionInteractor permissionInteractor;
-
 
     public ServerResponse createPermission(ServerRequest request) {
         try {
@@ -31,7 +26,7 @@ public class PermissionController {
         } catch (Exception e) {
             return ServerResponse.badRequest().body(new Response("400", "Error: " + e.getMessage()));
         }
-    }   
+    }
 
     public ServerResponse deletePermission(ServerRequest request) {
         try {
