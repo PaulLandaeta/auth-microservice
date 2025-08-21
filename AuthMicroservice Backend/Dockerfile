@@ -1,24 +1,22 @@
-# Usa una imagen oficial de Java
-FROM eclipse-temurin:21-jdk-alpine
-
-# Directorio de trabajo en el contenedor
+# Importing JDK and copying required files
+FROM openjdk:19-jdk AS build
 WORKDIR /app
-
-# Copia el pom.xml y descarga las dependencias primero (para caching)
 COPY pom.xml .
-COPY .mvn/ .mvn/
+COPY src src
+
+# Copy Maven wrapper
 COPY mvnw .
-RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline -B
+COPY .mvn .mvn
 
-# Copia el código fuente
-COPY src/ src/
+# Set execution permission for the Maven wrapper
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Compila el proyecto y crea el JAR
-RUN ./mvnw package -DskipTests
+# Stage 2: Create the final Docker image using OpenJDK 19
+FROM openjdk:19-jdk
+VOLUME /tmp
 
-# Puerto que expone la aplicación
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 8080
-
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "target/auth-microservice-0.0.1-SNAPSHOT.jar"]
