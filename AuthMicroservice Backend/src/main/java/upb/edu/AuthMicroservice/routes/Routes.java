@@ -42,6 +42,7 @@ public class Routes {
     public RouterFunction<ServerResponse> sessionRoutes() {
         return route()
                 .POST("/generate-session", sessionController::generateSession)
+                .POST("/refresh-token", sessionController::refreshToken)
                 .build();
     }
 }
