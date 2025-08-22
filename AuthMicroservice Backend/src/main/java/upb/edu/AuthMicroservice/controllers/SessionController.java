@@ -1,6 +1,9 @@
 package upb.edu.AuthMicroservice.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 import upb.edu.AuthMicroservice.dtos.GenerateSessionRequest;
@@ -17,6 +20,11 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
+    @PostMapping("/generate-session")
+    public ResponseEntity<Object> generateSession(@RequestParam int userId) {
+        return sessionService.generateSession(userId);
+    }
+
     public ServerResponse generateSession(ServerRequest request) {
         GenerateSessionRequest dto;
         try {
@@ -29,15 +37,12 @@ public class SessionController {
                             "msg",  "JSON inválido: " + e.getMessage()
                     ));
         }
-        String sessionId = sessionService.generateSession(dto.getUser_id());
+        ResponseEntity<Object> responseEntity = sessionService.generateSession(dto.getUser_id());
+        int status = responseEntity.getStatusCodeValue();
+        Object body = responseEntity.getBody();
 
-        Map<String, Object> body = Map.of(
-                "code",       201,
-                "msg",        "Sesión creada exitosamente",
-                "session_id", sessionId
-        );
         return ServerResponse
-                .status(201)
+                .status(status)
                 .body(body);
     }
 }

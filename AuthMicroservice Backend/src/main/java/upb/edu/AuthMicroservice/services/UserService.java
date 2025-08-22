@@ -42,11 +42,21 @@ public class UserService {
         }
 
         int userId = userOpt.get().getId();
-        UUID sessionId = sessionInteractor.execute(userId);
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("session", sessionId.toString());
-        return ResponseEntity.ok(Map.of("code", 200, "msg", "Ok", "data", data));
+        try {
+            var sessionResult = sessionInteractor.execute(userId);
+            return ResponseEntity.status(201).body(Map.of(
+                "code", 201,
+                "msg", "Sesión creada exitosamente",
+                "session_id", sessionResult.sessionId.toString(),
+                "access_token", sessionResult.accessToken,
+                "refresh_token", sessionResult.refreshToken.toString()
+            ));
+        } catch (Exception ex) {
+            return ResponseEntity.status(500).body(Map.of(
+                "code", 500,
+                "msg", "Error al generar el refresh token"
+            ));
+        }
     }
 
     public ResponseEntity<Object> changePassword(String email, String oldPassword, String newPassword) {

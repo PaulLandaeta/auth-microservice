@@ -1,6 +1,9 @@
 package upb.edu.AuthMicroservice.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,37 +26,30 @@ public class Session {
     @Column(name = "is_valid")
     private boolean isValid;
 
-    public Session() {}
+    @Column(name = "refresh_token", unique = true)
+    private UUID refreshToken;
 
-    public UUID getId() {
-        return id;
-    }
-    public void setId(UUID id) {
-        this.id = id;
-    }
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    public LocalDateTime getExpiresAt() {
-        return expiresAt;
-    }
-    public void setExpiresAt(LocalDateTime expiresAt) {
-        this.expiresAt = expiresAt;
-    }
-    public boolean isValid() {
-        return isValid;
-    }
-    public void setIsValid(boolean isValid) {
-        this.isValid = isValid;
-    }
+    @Column(name = "refresh_token_expires_at")
+    private LocalDateTime refreshTokenExpiresAt;
+
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getExpiresAt() { return expiresAt; }
+    public void setExpiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; }
+
+    public boolean isValid() { return isValid; }
+    public void setIsValid(boolean isValid) { this.isValid = isValid; }
+
+    public UUID getRefreshToken() { return refreshToken; }
+    public void setRefreshToken(UUID refreshToken) { this.refreshToken = refreshToken; }
+
+    public LocalDateTime getRefreshTokenExpiresAt() { return refreshTokenExpiresAt; }
+    public void setRefreshTokenExpiresAt(LocalDateTime refreshTokenExpiresAt) { this.refreshTokenExpiresAt = refreshTokenExpiresAt; }
 }
-
