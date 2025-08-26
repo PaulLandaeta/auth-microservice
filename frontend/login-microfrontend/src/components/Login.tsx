@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm";
 import SocialLogin from "./SocialLogin";
-import upbLogo from "/upblogo.jpeg";
+import upbLogo from "../../public/upblogo.jpeg";
 import figuraIzq from "/fotito.png";
 import figuraDer from "/fotito.png";
 

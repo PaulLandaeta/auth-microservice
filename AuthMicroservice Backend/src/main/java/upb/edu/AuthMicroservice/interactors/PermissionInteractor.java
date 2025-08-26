@@ -22,6 +22,9 @@ public class PermissionInteractor {
         return permissionService.createPermission(permission);
     }
 
+    public Permission updatePermission(String id, Permission permission) {
+    return permissionService.updatePermission(id, permission);
+    }
 
     public List<Permission> getAllPermissions() {
         return permissionService.getAllPermissions();

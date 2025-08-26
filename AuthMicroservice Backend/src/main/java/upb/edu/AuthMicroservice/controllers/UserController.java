@@ -8,16 +8,20 @@ import org.springframework.web.servlet.function.ServerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import upb.edu.AuthMicroservice.models.ChangePasswordRequest;
 import upb.edu.AuthMicroservice.models.LoginRequest;
 import upb.edu.AuthMicroservice.models.Response;
 import upb.edu.AuthMicroservice.models.User;
 import upb.edu.AuthMicroservice.services.UserService;
 
 import java.io.IOException;
+import java.util.Map;
+
 import jakarta.servlet.ServletException;
 
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Component
 public class UserController {
@@ -42,6 +46,34 @@ public class UserController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Register failed",
+                    e
+            );
+        }
+    }
+
+    public ServerResponse changePassword(ServerRequest request) {
+        log.info("Received change password request");
+        try {
+            ChangePasswordRequest changeRequest = request.body(ChangePasswordRequest.class);
+            log.info("Processing change password for email: {}", changeRequest.getEmail());
+            ResponseEntity<Object> response = userService.changePassword(
+                changeRequest.getEmail(),
+                changeRequest.getOldPassword(),
+                changeRequest.getNewPassword()
+            );
+
+            Map<String, Object> responseBody = (Map<String, Object>) response.getBody();
+            return ServerResponse
+                    .status(response.getStatusCode())
+                    .body(new Response(
+                        String.valueOf(responseBody.get("code")),
+                        (String) responseBody.get("msg")
+                    ));
+        } catch (IOException | ServletException e) {
+            log.error("Error binding request for changePassword", e);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Change password failed",
                     e
             );
         }

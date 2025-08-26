@@ -22,6 +22,7 @@ public class RoleRoutes {
                 .POST("/roles", roleController::createRole)
                 .DELETE("/roles/{id}", roleController::deleteRole) 
                 .GET("/roles", roleController::getAllRoles)
+                .PUT("/api/roles/{id}", roleController::updateRole) 
                 .build();
     }
 }

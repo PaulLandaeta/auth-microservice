@@ -23,4 +23,9 @@ public class RoleInteractor {
      public List<Role> getAllRoles() {
         return roleService.getAllRoles();
     }
+
+    public Role updateRole(Integer id, Role role) {
+        return roleService.updateRole(id, role);
+    }
+    
 }

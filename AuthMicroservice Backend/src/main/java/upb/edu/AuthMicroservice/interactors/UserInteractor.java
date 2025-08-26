@@ -21,4 +21,19 @@ public class UserInteractor {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
+        Optional<User> userOpt = findByEmail(email);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (user.getPassword().equals(oldPassword)) {
+                user.setPassword(newPassword);
+                userRepository.save(user);
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

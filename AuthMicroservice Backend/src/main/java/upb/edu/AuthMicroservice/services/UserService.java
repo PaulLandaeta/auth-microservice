@@ -46,11 +46,18 @@ public class UserService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("session", sessionId.toString());
+        return ResponseEntity.ok(Map.of("code", 200, "msg", "Ok", "data", data));
+    }
 
-        return ResponseEntity.ok(Map.of(
-                "code", 200,
-                "msg",  "Ok",
-                "data", data
-        ));
+    public ResponseEntity<Object> changePassword(String email, String oldPassword, String newPassword) {
+        boolean success = userInteractor.changePassword(email, oldPassword, newPassword);
+
+        if (success) {
+            return ResponseEntity.ok(Map.of("code", 200, "msg", "Ok"));
+        } else {
+            return ResponseEntity
+                    .status(401)
+                    .body(Map.of("code", 401, "msg", "Datos incorrectos"));
+        }
     }
 }

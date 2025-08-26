@@ -3,6 +3,9 @@ package upb.edu.AuthMicroservice.dtos;
 public class GenerateSessionRequest {
     private int user_id;
 
+
+    public GenerateSessionRequest() {}
+
     public int getUser_id() {
         return user_id;
     }

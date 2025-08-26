@@ -11,6 +11,9 @@ public class Session {
     @Id
     private UUID id;
 
+    @Column(name = "access_token", nullable = false, unique = true)
+    private UUID accessToken;
+
     @Column(name = "user_id")
     private int userId;
 
@@ -25,35 +28,21 @@ public class Session {
 
     public Session() {}
 
-    public UUID getId() {
-        return id;
-    }
-    public void setId(UUID id) {
-        this.id = id;
-    }
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    public LocalDateTime getExpiresAt() {
-        return expiresAt;
-    }
-    public void setExpiresAt(LocalDateTime expiresAt) {
-        this.expiresAt = expiresAt;
-    }
-    public boolean isValid() {
-        return isValid;
-    }
-    public void setIsValid(boolean isValid) {
-        this.isValid = isValid;
-    }
-}
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
+    public UUID getAccessToken() { return accessToken; }
+    public void setAccessToken(UUID accessToken) { this.accessToken = accessToken; }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getExpiresAt() { return expiresAt; }
+    public void setExpiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; }
+
+    public boolean isValid() { return isValid; }
+    public void setIsValid(boolean isValid) { this.isValid = isValid; }
+}
