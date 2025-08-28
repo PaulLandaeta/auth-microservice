@@ -81,8 +81,13 @@ public class UserController {
 
     public ServerResponse login(ServerRequest request) {
         try {
+            log.info("Received login request");
             LoginRequest dto = request.body(LoginRequest.class);
+            log.info("Login attempt for email: {}", dto.getEmail());
+            
             var resp = userService.login(dto.getEmail(), dto.getPassword());
+            log.info("Login response status: {}", resp.getStatusCodeValue());
+            
             return ServerResponse
                     .status(resp.getStatusCodeValue())
                     .body(resp.getBody());
@@ -91,6 +96,13 @@ public class UserController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Login failed",
+                    e
+            );
+        } catch (Exception e) {
+            log.error("Unexpected error during login", e);
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Login failed unexpectedly",
                     e
             );
         }

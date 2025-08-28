@@ -13,6 +13,7 @@ import upb.edu.AuthMicroservice.exceptions.InvalidRefreshTokenException;
 import upb.edu.AuthMicroservice.exceptions.InvalidSessionException;
 
 import upb.edu.AuthMicroservice.models.Session;
+import upb.edu.AuthMicroservice.models.User;
 import upb.edu.AuthMicroservice.repositories.SessionRepository;
 import upb.edu.AuthMicroservice.repositories.UserRepository;
 
@@ -20,18 +21,22 @@ import upb.edu.AuthMicroservice.repositories.UserRepository;
 @Service
 public class SessionService {
 
-    @Autowired
-    private SessionInteractor interactor;
+    private final SessionInteractor interactor;
+    private final RefreshTokenInteractor refreshTokenInteractor;
+    private final UserRepository userRepository;
+    private final SessionRepository sessionRepository;
 
     @Autowired
-
-    private RefreshTokenInteractor refreshTokenInteractor;
-
-    
-    private UserRepository userRepository;
-
-    @Autowired
-    private SessionRepository sessionRepository;
+    public SessionService(
+            SessionInteractor interactor,
+            RefreshTokenInteractor refreshTokenInteractor,
+            UserRepository userRepository,
+            SessionRepository sessionRepository) {
+        this.interactor = interactor;
+        this.refreshTokenInteractor = refreshTokenInteractor;
+        this.userRepository = userRepository;
+        this.sessionRepository = sessionRepository;
+    }
 
     public static class SessionCreationResult {
         private final UUID sessionId;
@@ -97,5 +102,34 @@ public class SessionService {
             }
             throw ex;
         }
+    }
+
+    public boolean logout(String email, String password, String sessionUuid) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+
+        if (userOpt.isEmpty() || !userOpt.get().getPassword().equals(password)) {
+            return false;
+        }
+
+        UUID sessionId;
+        try {
+            sessionId = UUID.fromString(sessionUuid);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+
+        Optional<Session> sessionOpt = sessionRepository.findById(sessionId);
+        if (sessionOpt.isEmpty()) {
+            return false;
+        }
+
+        Session session = sessionOpt.get();
+        if (session.getUserId() != userOpt.get().getId() || !session.isValid()) {
+            return false;
+        }
+
+        session.setIsValid(false);
+        sessionRepository.save(session);
+        return true;
     }
 }

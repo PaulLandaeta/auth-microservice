@@ -40,6 +40,7 @@ public class Routes {
         return route()
                 .POST("/generate-session", sessionController::generateSession)
                 .POST("/refresh-token", sessionController::refreshToken)
+                .POST("/logout", sessionController::logout)
                 .build();
     }
 }

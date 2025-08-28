@@ -7,6 +7,7 @@ import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 import upb.edu.AuthMicroservice.models.Response;
 import upb.edu.AuthMicroservice.models.Session;
+import upb.edu.AuthMicroservice.models.LogoutRequest;
 import upb.edu.AuthMicroservice.services.SessionService;
 import upb.edu.AuthMicroservice.dtos.RefreshTokenRequest;
 import upb.edu.AuthMicroservice.exceptions.InvalidRefreshTokenException;
@@ -151,6 +152,38 @@ public class SessionController {
         } catch (Exception ex) {
             logger.error("Error en /refresh-token", ex);
             return ServerResponse.status(500).body(new Response("500", "Error interno al refrescar el token"));
+        }
+    }
+
+    public ServerResponse logout(ServerRequest request) {
+        LogoutRequest logoutRequest;
+        try {
+            logoutRequest = request.body(LogoutRequest.class);
+        } catch (Exception e) {
+            return ServerResponse.badRequest().body(new Response("400", "JSON inválido: " + e.getMessage()));
+        }
+
+        try {
+            boolean success = sessionService.logout(
+                logoutRequest.getEmail(),
+                logoutRequest.getPassword(),
+                logoutRequest.getSession()
+            );
+
+            if (success) {
+                return ServerResponse.ok().body(Map.of(
+                    "code", 200,
+                    "msg", "Ok"
+                ));
+            } else {
+                return ServerResponse.status(401).body(Map.of(
+                    "code", 401,
+                    "msg", "Unauthorized"
+                ));
+            }
+        } catch (Exception ex) {
+            logger.error("Error en /logout", ex);
+            return ServerResponse.status(500).body(new Response("500", "Error interno al cerrar sesión"));
         }
     }
 }
