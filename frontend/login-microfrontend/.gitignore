@@ -26,3 +26,4 @@ dist-ssr
 # Archivos temporales de Vite/Module Federation
 .__mf__temp*
 **/__mf__virtual/*
+.vercel
