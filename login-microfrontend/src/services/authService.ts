@@ -1,12 +1,10 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
-const API_URL = "http://localhost:3000/auth"; 
-
-export async function changePassword(newPassword: string, confirmPassword: string) {
+export async function changePassword(email: string, newPassword: string) {
   try {
-    const response = await axios.post(`${API_URL}/change-password`, {
+    const response = await axiosInstance.post("/auth/change-password", {
+      email,
       newPassword,
-      confirmPassword,
     });
     return response.data;
   } catch (error: any) {
