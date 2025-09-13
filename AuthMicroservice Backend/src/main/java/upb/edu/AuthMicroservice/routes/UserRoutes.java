@@ -17,7 +17,7 @@ public class UserRoutes {
         return route()
                 .POST("/register-user", userController::registerUser)
                 .POST("/login",        userController::login)
-                .PUT("/change-password", userController::changePassword)
+                .POST("/auth/change-password", userController::changePassword)
                 .POST("/email-validation", userController::validateEmail)
                 .build();
     }

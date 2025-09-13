@@ -63,18 +63,37 @@ public class UserController {
                 changeRequest.getNewPassword()
             );
 
-            Map<String, Object> responseBody = (Map<String, Object>) response.getBody();
+            Object body = response.getBody();
+            int status = response.getStatusCodeValue();
+            String msg = "";
+            Object codeObj = null;
+
+            if (body instanceof Map) {
+                Map<?, ?> map = (Map<?, ?>) body;
+                codeObj = map.get("code");
+                Object msgObj = map.get("msg");
+                if (msgObj != null) msg = msgObj.toString();
+            } else if (body != null) {
+                msg = body.toString();
+            }
+
+            String codeStr = codeObj != null ? String.valueOf(codeObj) : String.valueOf(status);
+
             return ServerResponse
-                    .status(response.getStatusCode())
-                    .body(new Response(
-                        String.valueOf(responseBody.get("code")),
-                        (String) responseBody.get("msg")
-                    ));
+                    .status(status)
+                    .body(new Response(codeStr, msg));
         } catch (IOException | ServletException e) {
             log.error("Error binding request for changePassword", e);
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Change password failed",
+                    e
+            );
+        } catch (Exception e) {
+            log.error("Unexpected error in changePassword", e);
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Internal server error",
                     e
             );
         }

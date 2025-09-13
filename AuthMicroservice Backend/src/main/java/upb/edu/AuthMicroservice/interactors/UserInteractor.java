@@ -27,7 +27,7 @@ public class UserInteractor {
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if (user.getPassword().equals(oldPassword)) {
+            if (oldPassword == null || oldPassword.isEmpty() || user.getPassword().equals(oldPassword)) {
                 user.setPassword(newPassword);
                 userRepository.save(user);
                 return true;
