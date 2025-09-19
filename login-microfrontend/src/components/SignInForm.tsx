@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { loginUser } from "../api/loginUser";
-import PopUpForgotPassword from "./PopUpForgotPassword";
+import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import type { InferType } from "yup";
@@ -17,10 +16,10 @@ const signInSchema = object({
 type SignInFormData = InferType<typeof signInSchema>;
 
 export default function SignInForm() {
-  const [showForgot, setShowForgot] = useState(false);
   const navigate = useNavigate();
   const [form] = Form.useForm<SignInFormData>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, isLoading } = useAuthContext();
 
   const [messageApi, contextHolder] = antdMessage.useMessage();
 
@@ -29,20 +28,15 @@ export default function SignInForm() {
     try {
       await signInSchema.validate(values, { abortEarly: false });
 
-      const data = await loginUser({
+      const data = await login({
         email: values.email,
         password: values.password,
       });
 
-      localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
-      localStorage.setItem("session_id", data.session_id);
-      localStorage.setItem("isAuthenticated", "true");
-
       messageApi.success(data.msg || "Has iniciado sesión correctamente");
 
       navigate("/");
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error && typeof error === "object" && "inner" in error) {
         const validationError = error as {
           inner?: Array<{ path?: string; message: string }>;
@@ -53,12 +47,14 @@ export default function SignInForm() {
         });
         form.setFields(
           Object.entries(fieldErrors).map(([name, errors]) => ({
-            name: name as any,
+            name: name as keyof SignInFormData,
             errors,
           }))
         );
       } else {
-        messageApi.error(error?.message ?? "No se pudo iniciar sesión");
+        const errorMessage =
+          error instanceof Error ? error.message : "No se pudo iniciar sesión";
+        messageApi.error(errorMessage);
         form.setFields([
           { name: "email", errors: [" "] },
           { name: "password", errors: [" "] },
@@ -102,44 +98,15 @@ export default function SignInForm() {
           <Input.Password placeholder="Password" size="large" />
         </Form.Item>
 
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: 14,
-            textDecoration: "none",
-            margin: "15px 0",
-            display: "block",
-            transition: "color 0.3s ease",
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            setShowForgot(true);
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "#1d4ed8";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#2563eb";
-          }}
-        >
-          Forgot your password?
-        </a>
-
-        <PopUpForgotPassword
-          open={showForgot}
-          onClose={() => setShowForgot(false)}
-        />
-
         <PrimaryButton
           htmlType="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || isLoading}
           style={{
-            opacity: isSubmitting ? 0.7 : 1,
-            cursor: isSubmitting ? "not-allowed" : "pointer",
+            opacity: isSubmitting || isLoading ? 0.7 : 1,
+            cursor: isSubmitting || isLoading ? "not-allowed" : "pointer",
           }}
         >
-          {isSubmitting ? "Signing In..." : "Sign In"}
+          {isSubmitting || isLoading ? "Signing In..." : "Sign In"}
         </PrimaryButton>
       </Form>
 

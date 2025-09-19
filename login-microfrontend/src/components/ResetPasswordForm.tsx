@@ -9,15 +9,18 @@ export default function ResetPasswordForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const onFinish = async (values: { newPassword: string; confirmPassword: string }) => {
+  const onFinish = async (_values: {
+    newPassword: string;
+    confirmPassword: string;
+  }) => {
     setLoading(true);
     try {
-      await new Promise((r) => setTimeout(r, 700)); 
+      await new Promise((r) => setTimeout(r, 700));
 
       message.success("Contraseña guardada");
       form.resetFields();
-      navigate("/reset-confirmation"); 
-    } catch (err) {
+      navigate("/reset-confirmation");
+    } catch (_err: unknown) {
       message.error("Ocurrió un error. Intenta nuevamente.");
     } finally {
       setLoading(false);
@@ -32,15 +35,23 @@ export default function ResetPasswordForm() {
           label="Nueva contraseña"
           name="newPassword"
           rules={[
-            { required: true, message: "Por favor ingresa tu nueva contraseña" },
+            {
+              required: true,
+              message: "Por favor ingresa tu nueva contraseña",
+            },
             {
               pattern: passwordPattern,
-              message: "Mínimo 8 caracteres, al menos 1 mayúscula, 1 minúscula y 1 número",
+              message:
+                "Mínimo 8 caracteres, al menos 1 mayúscula, 1 minúscula y 1 número",
             },
           ]}
           hasFeedback
         >
-          <Input.Password placeholder="Nueva contraseña" size="large" autoFocus />
+          <Input.Password
+            placeholder="Nueva contraseña"
+            size="large"
+            autoFocus
+          />
         </Form.Item>
 
         <Form.Item
@@ -55,7 +66,9 @@ export default function ResetPasswordForm() {
                 if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("Las contraseñas no coinciden"));
+                return Promise.reject(
+                  new Error("Las contraseñas no coinciden")
+                );
               },
             }),
           ]}

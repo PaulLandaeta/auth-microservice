@@ -19,12 +19,21 @@ export interface RegisterUserResponse {
 export const registerUser = async (userData: RegisterUserData): Promise<RegisterUserResponse> => {
   try {
     const response = await axiosInstance.post('/auth/register-user', userData);
+    console.log('Respuesta de registro:', response.data);
+
+    if ('code' in response.data && 'msg' in response.data) {
+      return {
+        success: response.data.code === '201' || response.data.code === 201,
+        message: response.data.msg,
+      };
+    }
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error en registerUser:', error);
 
-    if (error.response?.data?.message) {
-      throw new Error(error.response.data.message);
+    const axiosError = error as { response?: { data?: { message?: string } } };
+    if (axiosError.response?.data?.message) {
+      throw new Error(axiosError.response.data.message);
     }
 
     throw new Error('Error al registrar usuario');
